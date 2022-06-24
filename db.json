@@ -3,6 +3,39 @@
     {
       "id": 1,
       "nome": "Alura Tracker"
+    },
+    {
+      "id": 2,
+      "nome": "BiteBank"
+    }
+  ],
+  "tarefas": [
+    {
+      "duracaoEmSegundos": 7,
+      "descricao": "VUEX",
+      "projeto": {
+        "id": 2,
+        "nome": "BiteBank"
+      },
+      "id": 3
+    },
+    {
+      "duracaoEmSegundos": 0,
+      "descricao": "",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 4
+    },
+    {
+      "duracaoEmSegundos": 152,
+      "descricao": "Estudo Vue.x",
+      "projeto": {
+        "id": 1,
+        "nome": "Alura Tracker"
+      },
+      "id": 5
     }
   ]
 }

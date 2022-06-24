@@ -1,16 +1,18 @@
 
-import { OBTER_PROJETOS, CADASTRAR_PROJETOS, ALTERAR_PROJETOS, REMOVER_PROJETOS } from './tipo-acoes';
+import { OBTER_PROJETOS, CADASTRAR_PROJETOS, ALTERAR_PROJETOS, REMOVER_PROJETOS, OBTER_TAREFAS, CADASTRAR_TAREFAS } from './tipo-acoes';
 import INotificacao from "@/interfaces/INotificacao";
 import IProjeto from "@/interfaces/IProjeto";
 import { InjectionKey } from 'vue';
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import{ ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, EXCLUIR_PROJETO, NOTIFICAR} from './tipo-mutation'
+import{ ADICIONA_PROJETO, ADICIONA_TAREFA, ALTERA_PROJETO, DEFINIR_PROJETOS, DEFINIR_TAREFAS, EXCLUIR_PROJETO, NOTIFICAR} from './tipo-mutation'
 import http from '@/http'
+import ITarefa from '@/interfaces/ITarefa';
 
 
 interface Estado {
     projetos: IProjeto[],
     notificacoes: INotificacao[]
+    tarefas: ITarefa[]
 }
 
 export const key:InjectionKey<Store<Estado>> = Symbol()
@@ -18,7 +20,8 @@ export const key:InjectionKey<Store<Estado>> = Symbol()
 export const store = createStore<Estado>({
     state: {
         projetos:[],
-        notificacoes:[]
+        notificacoes:[],
+        tarefas:[]
     },
     mutations: {
         [ADICIONA_PROJETO](state, nomeDoProjeto: string){
@@ -47,6 +50,12 @@ export const store = createStore<Estado>({
                 state.notificacoes= state.notificacoes.filter(notificacao => notificacao.id != novaNotificacao.id)
             }, 3000)
         },
+        [DEFINIR_TAREFAS](state, tarefas: ITarefa[]){
+            state.tarefas = tarefas
+        },
+        [ADICIONA_TAREFA](state, tarefa: ITarefa){
+            state.tarefas.push(tarefa)
+        },
     },
     actions: {
         [OBTER_PROJETOS]({commit}){
@@ -63,7 +72,15 @@ export const store = createStore<Estado>({
         [REMOVER_PROJETOS]({ commit }, id:string){
             return http.delete(`/projetos/${id}`)
             .then(()=> commit(EXCLUIR_PROJETO, id))
-        }
+        },
+        [OBTER_TAREFAS]({commit}){
+            http.get('tarefas')
+            .then(resp => commit(DEFINIR_TAREFAS, resp.data))
+        },
+        [CADASTRAR_TAREFAS]({commit}, tarefa:ITarefa){
+            return http.post('/tarefas', tarefa)
+                   .then(resp => commit(ADICIONA_TAREFA, resp.data)) 
+        },
     }
 })
 
