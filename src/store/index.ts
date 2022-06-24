@@ -1,8 +1,12 @@
+
+import { OBTER_PROJETOS, CADASTRAR_PROJETOS, ALTERAR_PROJETOS, REMOVER_PROJETOS } from './tipo-acoes';
 import INotificacao from "@/interfaces/INotificacao";
 import IProjeto from "@/interfaces/IProjeto";
 import { InjectionKey } from 'vue';
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import{ ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, NOTIFICAR} from './tipo-mutation'
+import{ ADICIONA_PROJETO, ALTERA_PROJETO, DEFINIR_PROJETOS, EXCLUIR_PROJETO, NOTIFICAR} from './tipo-mutation'
+import http from '@/http'
+
 
 interface Estado {
     projetos: IProjeto[],
@@ -31,6 +35,9 @@ export const store = createStore<Estado>({
         [EXCLUIR_PROJETO](state, id: string){
             state.projetos = state.projetos.filter(proj => proj.id != id)
         },
+        [DEFINIR_PROJETOS](state, projetos: IProjeto[]){
+            state.projetos = projetos
+        },   
         [NOTIFICAR](state, novaNotificacao:INotificacao){
 
             novaNotificacao.id = new Date().getTime()
@@ -39,8 +46,24 @@ export const store = createStore<Estado>({
             setTimeout(()=>{
                 state.notificacoes= state.notificacoes.filter(notificacao => notificacao.id != novaNotificacao.id)
             }, 3000)
+        },
+    },
+    actions: {
+        [OBTER_PROJETOS]({commit}){
+            http.get('projetos')
+             .then(resp => commit(DEFINIR_PROJETOS, resp.data))
+        },
+        [CADASTRAR_PROJETOS]({commit}, nomeDoProjeto:string){
+            return http.post('/projetos', {nome:nomeDoProjeto})
+                   .then(()=> commit(ADICIONA_PROJETO, nomeDoProjeto)) 
+        },
+        [ALTERAR_PROJETOS](contexto, projeto:IProjeto){
+            return http.put(`/projetos/${projeto.id}`, projeto)
+        },
+        [REMOVER_PROJETOS]({ commit }, id:string){
+            return http.delete(`/projetos/${id}`)
+            .then(()=> commit(EXCLUIR_PROJETO, id))
         }
-    
     }
 })
 

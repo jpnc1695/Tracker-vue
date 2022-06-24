@@ -21,7 +21,7 @@
 import { useStore } from "@/store";
 import { defineComponent } from "vue";
 import { TipoNotificacao } from '@/interfaces/INotificacao'
-import { ADICIONA_PROJETO, ALTERA_PROJETO } from '../../store/tipo-mutation'
+import { ALTERAR_PROJETOS, CADASTRAR_PROJETOS } from "@/store/tipo-acoes";
 import useNotificador from '@/hooks/notificador'
 
 export default defineComponent({
@@ -45,17 +45,21 @@ export default defineComponent({
   methods: {
     salvar(){
       if(this.id){
-        this.store.commit(ALTERA_PROJETO,{
+        this.store.dispatch(ALTERAR_PROJETOS,{
           id:this.id,
           nome:this.nomeDoProjeto
-        })
+        }).then(()=> this.lidarComSucesso())
       }else{
-        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
-      }
-      this.nomeDoProjeto = "";
-      this.notificar(TipoNotificacao.SUCESSO, 'Projeto adicionado com sucesso','Pronto! Projeto cadastrado com sucesso')
-      this.$router.push('/projetos')
+            this.store.dispatch(CADASTRAR_PROJETOS, this.nomeDoProjeto)
+            .then(()=>{ this.lidarComSucesso })
+            .catch(()=>{ this.notificar(TipoNotificacao.FALHA, 'ERRO!','ERRO ao criar projeto')})
+      }  
     },
+    lidarComSucesso(){
+      this.nomeDoProjeto ="";
+      this.notificar(TipoNotificacao.SUCESSO,'Pronto!', 'Projeto criado com sucesso')
+      this.$router.push('/projetos')
+    }
   },
   setup(){
     const store = useStore()
@@ -66,5 +70,7 @@ export default defineComponent({
     }
   }
 })
+
+
 </script>
 
