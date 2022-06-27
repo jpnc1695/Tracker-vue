@@ -10,7 +10,6 @@ export interface EstadoProjeto {
 }
 
 export const projeto: Module<EstadoProjeto, Estado> = {
-
   mutations: {
     [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
       const projeto = {
@@ -50,3 +49,4 @@ export const projeto: Module<EstadoProjeto, Estado> = {
     },
   },
 };
+

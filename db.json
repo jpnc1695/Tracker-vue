@@ -44,6 +44,15 @@
         "nome": "Alura Tracker"
       },
       "id": 6
+    },
+    {
+      "duracaoEmSegundos": 3,
+      "descricao": "teste",
+      "projeto": {
+        "id": 2,
+        "nome": "BiteBank"
+      },
+      "id": 7
     }
   ]
 }
