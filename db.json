@@ -7,6 +7,14 @@
     {
       "id": 2,
       "nome": "BiteBank"
+    },
+    {
+      "nome": "Vuex",
+      "id": 3
+    },
+    {
+      "nome": "Vuex - parte 3",
+      "id": 4
     }
   ],
   "tarefas": [
@@ -17,16 +25,16 @@
         "id": 2,
         "nome": "BiteBank"
       },
-      "id": 3
+      "id": 4
     },
     {
       "duracaoEmSegundos": 0,
-      "descricao": "",
+      "descricao": "Vuex - parte 2",
       "projeto": {
         "id": 1,
         "nome": "Alura Tracker"
       },
-      "id": 4
+      "id": 5
     },
     {
       "duracaoEmSegundos": 152,
@@ -35,7 +43,7 @@
         "id": 1,
         "nome": "Alura Tracker"
       },
-      "id": 5
+      "id": 6
     }
   ]
 }
