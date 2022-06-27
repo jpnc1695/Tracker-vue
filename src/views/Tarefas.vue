@@ -54,7 +54,7 @@ import {
   OBTER_TAREFAS,
   CADASTRAR_TAREFAS,
   OBTER_PROJETOS,
-ALTERAR_TAREFAS,
+  ALTERAR_TAREFAS,
 } from "@/store/tipo-acoes";
 import ITarefa from "@/interfaces/ITarefa";
 
