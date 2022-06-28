@@ -16,7 +16,7 @@
   "tarefas": [
     {
       "duracaoEmSegundos": 7,
-      "descricao": "VUEX",
+      "descricao": "VUEX - 2",
       "projeto": {
         "id": 2,
         "nome": "BiteBank"
