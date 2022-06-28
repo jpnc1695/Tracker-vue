@@ -7,6 +7,10 @@
     {
       "id": 2,
       "nome": "BiteBank 2.0"
+    },
+    {
+      "nome": "Mvc - padrões de projeto",
+      "id": 3
     }
   ],
   "tarefas": [
@@ -54,6 +58,15 @@
         "nome": "Alura Tracker"
       },
       "id": 8
+    },
+    {
+      "duracaoEmSegundos": 6,
+      "descricao": "Mvc parte 1 - O que é ?",
+      "projeto": {
+        "nome": "Mvc - padrões de projeto",
+        "id": 3
+      },
+      "id": 9
     }
   ]
 }
